@@ -1,0 +1,3452 @@
+<sdf version='1.11'>
+  <model name='cable2'>
+    <joint name='fixed_to_world' type='fixed'>
+      <pose relative_to='__model__'>0 0 2 1.57 0 0</pose>
+      <parent>world</parent>
+      <child>cable_base_link</child>
+    </joint>
+    <link name='cable_base_link'>
+      <pose relative_to='fixed_to_world'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <collision name='cable_base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.04 0.04 0.02</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+          </contact>
+          <friction>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='cable_base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.04 0.04 0.02</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Gray</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+          <diffuse>1 0 0 1</diffuse>
+          <ambient>1 0 0 1</ambient>
+        </material>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name='cable_base_to_seg_001' type='universal'>
+      <pose relative_to='cable_base_link'>0 0 -0.01 0 0 0</pose>
+      <parent>cable_base_link</parent>
+      <child>seg_001</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_001">
+      <pose relative_to="cable_base_to_seg_001">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_001_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_001_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_001_to_seg_002" type="universal">
+      <pose relative_to="seg_001">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_001</parent>
+      <child>seg_002</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_002">
+      <pose relative_to="seg_001_to_seg_002">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_002_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_002_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_002_to_seg_003" type="universal">
+      <pose relative_to="seg_002">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_002</parent>
+      <child>seg_003</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_003">
+      <pose relative_to="seg_002_to_seg_003">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_003_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_003_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_003_to_seg_004" type="universal">
+      <pose relative_to="seg_003">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_003</parent>
+      <child>seg_004</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_004">
+      <pose relative_to="seg_003_to_seg_004">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_004_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_004_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_004_to_seg_005" type="universal">
+      <pose relative_to="seg_004">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_004</parent>
+      <child>seg_005</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_005">
+      <pose relative_to="seg_004_to_seg_005">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_005_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_005_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_005_to_seg_006" type="universal">
+      <pose relative_to="seg_005">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_005</parent>
+      <child>seg_006</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_006">
+      <pose relative_to="seg_005_to_seg_006">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_006_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_006_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_006_to_seg_007" type="universal">
+      <pose relative_to="seg_006">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_006</parent>
+      <child>seg_007</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_007">
+      <pose relative_to="seg_006_to_seg_007">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_007_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_007_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_007_to_seg_008" type="universal">
+      <pose relative_to="seg_007">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_007</parent>
+      <child>seg_008</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_008">
+      <pose relative_to="seg_007_to_seg_008">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_008_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_008_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_008_to_seg_009" type="universal">
+      <pose relative_to="seg_008">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_008</parent>
+      <child>seg_009</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_009">
+      <pose relative_to="seg_008_to_seg_009">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_009_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_009_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_009_to_seg_010" type="universal">
+      <pose relative_to="seg_009">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_009</parent>
+      <child>seg_010</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_010">
+      <pose relative_to="seg_009_to_seg_010">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_010_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_010_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_010_to_seg_011" type="universal">
+      <pose relative_to="seg_010">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_010</parent>
+      <child>seg_011</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_011">
+      <pose relative_to="seg_010_to_seg_011">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_011_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_011_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_011_to_seg_012" type="universal">
+      <pose relative_to="seg_011">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_011</parent>
+      <child>seg_012</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_012">
+      <pose relative_to="seg_011_to_seg_012">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_012_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_012_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_012_to_seg_013" type="universal">
+      <pose relative_to="seg_012">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_012</parent>
+      <child>seg_013</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_013">
+      <pose relative_to="seg_012_to_seg_013">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_013_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_013_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_013_to_seg_014" type="universal">
+      <pose relative_to="seg_013">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_013</parent>
+      <child>seg_014</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_014">
+      <pose relative_to="seg_013_to_seg_014">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_014_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_014_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_014_to_seg_015" type="universal">
+      <pose relative_to="seg_014">0 0 -0.0625 0 0 0</pose>
+      <parent>seg_014</parent>
+      <child>seg_015</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.4</lower>
+          <upper>1.4</upper>
+          <effort>50</effort>
+          <velocity>3</velocity>
+        </limit>
+        <dynamics>
+          <damping>1.0</damping>
+          <friction>0.003</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_015">
+      <pose relative_to="seg_014_to_seg_015">0 0 -0.0625 0 0 0</pose>
+      <inertial>
+        <mass>0.0025</mass>
+        <inertia>
+          <ixx>3e-5</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>3e-5</iyy>
+          <iyz>0.0</iyz>
+          <izz>1e-6</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_015_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.125</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_015_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.125</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <!-- <joint name="seg_015_to_seg_016" type="universal">
+      <pose relative_to="seg_015">0 0 -0.125 0 0 0</pose>
+      <parent>seg_015</parent>
+      <child>seg_016</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_016">
+      <pose relative_to="seg_015_to_seg_016">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_016_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_016_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_016_to_seg_017" type="universal">
+      <pose relative_to="seg_016">0 0 -0.125 0 0 0</pose>
+      <parent>seg_016</parent>
+      <child>seg_017</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_017">
+      <pose relative_to="seg_016_to_seg_017">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_017_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_017_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_017_to_seg_018" type="universal">
+      <pose relative_to="seg_017">0 0 -0.125 0 0 0</pose>
+      <parent>seg_017</parent>
+      <child>seg_018</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_018">
+      <pose relative_to="seg_017_to_seg_018">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_018_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_018_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_018_to_seg_019" type="universal">
+      <pose relative_to="seg_018">0 0 -0.125 0 0 0</pose>
+      <parent>seg_018</parent>
+      <child>seg_019</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_019">
+      <pose relative_to="seg_018_to_seg_019">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_019_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_019_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_019_to_seg_020" type="universal">
+      <pose relative_to="seg_019">0 0 -0.125 0 0 0</pose>
+      <parent>seg_019</parent>
+      <child>seg_020</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_020">
+      <pose relative_to="seg_019_to_seg_020">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_020_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_020_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_020_to_seg_021" type="universal">
+      <pose relative_to="seg_020">0 0 -0.125 0 0 0</pose>
+      <parent>seg_020</parent>
+      <child>seg_021</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_021">
+      <pose relative_to="seg_020_to_seg_021">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_021_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_021_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_021_to_seg_022" type="universal">
+      <pose relative_to="seg_021">0 0 -0.125 0 0 0</pose>
+      <parent>seg_021</parent>
+      <child>seg_022</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_022">
+      <pose relative_to="seg_021_to_seg_022">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_022_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_022_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_022_to_seg_023" type="universal">
+      <pose relative_to="seg_022">0 0 -0.125 0 0 0</pose>
+      <parent>seg_022</parent>
+      <child>seg_023</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_023">
+      <pose relative_to="seg_022_to_seg_023">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_023_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_023_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_023_to_seg_024" type="universal">
+      <pose relative_to="seg_023">0 0 -0.125 0 0 0</pose>
+      <parent>seg_023</parent>
+      <child>seg_024</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_024">
+      <pose relative_to="seg_023_to_seg_024">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_024_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_024_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_024_to_seg_025" type="universal">
+      <pose relative_to="seg_024">0 0 -0.125 0 0 0</pose>
+      <parent>seg_024</parent>
+      <child>seg_025</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_025">
+      <pose relative_to="seg_024_to_seg_025">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_025_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_025_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_025_to_seg_026" type="universal">
+      <pose relative_to="seg_025">0 0 -0.125 0 0 0</pose>
+      <parent>seg_025</parent>
+      <child>seg_026</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_026">
+      <pose relative_to="seg_025_to_seg_026">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_026_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_026_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_026_to_seg_027" type="universal">
+      <pose relative_to="seg_026">0 0 -0.125 0 0 0</pose>
+      <parent>seg_026</parent>
+      <child>seg_027</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_027">
+      <pose relative_to="seg_026_to_seg_027">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_027_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_027_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_027_to_seg_028" type="universal">
+      <pose relative_to="seg_027">0 0 -0.125 0 0 0</pose>
+      <parent>seg_027</parent>
+      <child>seg_028</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_028">
+      <pose relative_to="seg_027_to_seg_028">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_028_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_028_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_028_to_seg_029" type="universal">
+      <pose relative_to="seg_028">0 0 -0.125 0 0 0</pose>
+      <parent>seg_028</parent>
+      <child>seg_029</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_029">
+      <pose relative_to="seg_028_to_seg_029">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_029_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_029_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_029_to_seg_030" type="universal">
+      <pose relative_to="seg_029">0 0 -0.125 0 0 0</pose>
+      <parent>seg_029</parent>
+      <child>seg_030</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_030">
+      <pose relative_to="seg_029_to_seg_030">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_030_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_030_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_030_to_seg_031" type="universal">
+      <pose relative_to="seg_030">0 0 -0.125 0 0 0</pose>
+      <parent>seg_030</parent>
+      <child>seg_031</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_031">
+      <pose relative_to="seg_030_to_seg_031">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_031_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_031_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_031_to_seg_032" type="universal">
+      <pose relative_to="seg_031">0 0 -0.125 0 0 0</pose>
+      <parent>seg_031</parent>
+      <child>seg_032</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_032">
+      <pose relative_to="seg_031_to_seg_032">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_032_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_032_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_032_to_seg_033" type="universal">
+      <pose relative_to="seg_032">0 0 -0.125 0 0 0</pose>
+      <parent>seg_032</parent>
+      <child>seg_033</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_033">
+      <pose relative_to="seg_032_to_seg_033">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_033_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_033_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_033_to_seg_034" type="universal">
+      <pose relative_to="seg_033">0 0 -0.125 0 0 0</pose>
+      <parent>seg_033</parent>
+      <child>seg_034</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_034">
+      <pose relative_to="seg_033_to_seg_034">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_034_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_034_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_034_to_seg_035" type="universal">
+      <pose relative_to="seg_034">0 0 -0.125 0 0 0</pose>
+      <parent>seg_034</parent>
+      <child>seg_035</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_035">
+      <pose relative_to="seg_034_to_seg_035">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_035_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_035_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_035_to_seg_036" type="universal">
+      <pose relative_to="seg_035">0 0 -0.125 0 0 0</pose>
+      <parent>seg_035</parent>
+      <child>seg_036</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_036">
+      <pose relative_to="seg_035_to_seg_036">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_036_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_036_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_036_to_seg_037" type="universal">
+      <pose relative_to="seg_036">0 0 -0.125 0 0 0</pose>
+      <parent>seg_036</parent>
+      <child>seg_037</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_037">
+      <pose relative_to="seg_036_to_seg_037">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_037_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_037_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_037_to_seg_038" type="universal">
+      <pose relative_to="seg_037">0 0 -0.125 0 0 0</pose>
+      <parent>seg_037</parent>
+      <child>seg_038</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_038">
+      <pose relative_to="seg_037_to_seg_038">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_038_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_038_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_038_to_seg_039" type="universal">
+      <pose relative_to="seg_038">0 0 -0.125 0 0 0</pose>
+      <parent>seg_038</parent>
+      <child>seg_039</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_039">
+      <pose relative_to="seg_038_to_seg_039">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_039_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_039_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+    <joint name="seg_039_to_seg_040" type="universal">
+      <pose relative_to="seg_039">0 0 -0.125 0 0 0</pose>
+      <parent>seg_039</parent>
+      <child>seg_040</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis>
+      <axis2>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>50</effort>
+          <velocity>5</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.5</damping>
+          <friction>0.0</friction>
+        </dynamics>
+      </axis2>
+    </joint>
+    <link name="seg_040">
+      <pose relative_to="seg_039_to_seg_040">0 0 -0.125 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="seg_040_col">
+        <geometry>
+          <box>
+            <size>0.007 0.007 0.25</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <collide_bitmask>0x00</collide_bitmask>
+          </contact>
+        </surface>
+      </collision>
+      <visual name="seg_040_vis">
+        <geometry>
+          <cylinder>
+            <radius>0.003</radius>
+            <length>0.25</length>
+          </cylinder>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link> -->
+
+    <joint name='seg_015_to_end_sphere' type='fixed'>
+      <pose relative_to='seg_015'>0 0 -0.125 0 0 0</pose>
+      <parent>seg_015</parent>
+      <child>end_sphere</child>
+    </joint>
+    <link name='end_sphere'>
+      <pose relative_to='seg_015_to_end_sphere'>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.00027</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00027</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.0000002</izz>
+        </inertia>
+      </inertial>
+      <collision name='end_sphere_collision'>
+        <geometry>
+          <sphere>
+            <radius>0.01</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name='end_sphere_visual'>
+        <geometry>
+          <sphere>
+            <radius>0.01</radius>
+          </sphere>
+        </geometry>
+      </visual>
+      <self_collide>false</self_collide>
+    </link>
+
+    <!-- Hydrodynamics drag for cable cylinders -->
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_001</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_002</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_003</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_004</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_005</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_006</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_007</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_008</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_009</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_010</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_011</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_012</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_013</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_014</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_015</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <!-- <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_016</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_017</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_018</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_019</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_020</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_021</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_022</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_023</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_024</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_025</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_026</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_027</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_028</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_029</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_030</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_031</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_032</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_033</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_034</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_035</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_036</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_037</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_038</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_039</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin>
+    <plugin 
+        filename="gz-sim-hydrodynamics-system"
+        name="gz::sim::systems::Hydrodynamics">
+      <link_name>seg_040</link_name>
+      <water_density>1025</water_density>
+      <xU>-0.5</xU> 
+      <yV>-0.5</yV>
+      <zW>-0.8</zW>
+      <kP>-0.05</kP> 
+      <mQ>-0.05</mQ> 
+      <nR>-0.05</nR>
+      <xUabsU>-2</xUabsU> 
+      <yVabsV>-2</yVabsV> 
+      <zWabsW>-3</zWabsW>
+      <kPabsP>-0.1</kPabsP> 
+      <mQabsQ>-0.1</mQabsQ> 
+      <nRabsR>-0.1</nRabsR>
+    </plugin> -->
+  </model>
+</sdf>

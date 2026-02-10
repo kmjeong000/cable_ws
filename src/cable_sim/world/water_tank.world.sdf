@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="water_tank">
+
+    <plugin 
+      filename="gz-sim-physics-system" 
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin 
+      filename="gz-sim-scene-broadcaster-system" 
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+    </plugin>
+    <plugin
+      filename="gz-sim-buoyancy-system"
+      name="gz::sim::systems::Buoyancy">
+      <graded_buoyancy>
+        <default_density>1025</default_density>
+        <density_change>
+          <above_depth>2.1</above_depth>
+          <density>1</density>
+        </density_change>
+      </graded_buoyancy>
+    </plugin>
+
+    <light type="directional" name="sun1">
+      <pose>50 0 150 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>.1 .1 .1 1</specular>
+      <direction>0.3 0.3 -1</direction>
+      <cast_shadows>false</cast_shadows>
+    </light>
+    
+		<physics name="1ms" type="ignored">
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <model name="water_visual">
+      <static>1</static>
+      <link name="link">
+        <visual name="vis">
+          <pose>0 0 1.1 0 0 0</pose>
+          <geometry>
+            <box><size>5 5 2.0</size></box>
+          </geometry>
+          <material>
+            <ambient>0 0.2 0.4 0.3</ambient>
+            <diffuse>0 0.2 0.4 0.3</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://watertank</uri>
+      <pose>0 0 1.25 0 0 0</pose>
+    </include>
+
+    <!-- <include>
+      <uri>model://assembly</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include> -->
+    <include>
+      <uri>model://cable2</uri>
+      <pose>0 -2.424 0 0 0 0</pose>
+    </include> 
+    <include>
+      <uri>model://bluerov2</uri>
+      <pose>0 0 1 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>

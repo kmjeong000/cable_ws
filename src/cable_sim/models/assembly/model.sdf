@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <model name="assembly">
+    <static>false</static>
+
+    <include>
+      <uri>model://cable2</uri>
+      <name>cable</name>
+      <pose>0 -2.424 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://bluerov2</uri>
+      <name>bluerov2</name>
+      <pose relative_to="cable::end_sphere">0.01 -0.1 -0.15 -1.5708 1.5708 0</pose>
+    </include>
+
+    <joint name="cable_to_bluerov2" type="fixed">
+      <parent>cable::end_sphere</parent>
+      <child>bluerov2::base_link</child>
+    </joint>
+
+  </model>
+</sdf>
