@@ -162,6 +162,66 @@
       </link>
     </model>
 
+    <model name="marker1">
+      <static>false</static>
+      <pose>0.5 0.5 2.5 0 0 0</pose>
+      <link name="marker1">
+        <inertial>
+          <mass>0.5367</mass>
+          <inertia>
+            <ixx>0.0005367</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0005367</iyy>
+            <iyz>0</iyz>
+            <izz>0.0005367</izz>
+          </inertia>
+        </inertial>
+        <linear_damping>5.0</linear_damping>
+        <angular_damping>5.0</angular_damping>
+        <visual name="visual">
+          <geometry><sphere><radius>0.05</radius></sphere></geometry>
+          <material>
+            <ambient>0.7 0.6 0 1</ambient>
+            <diffuse>1.0 0.85 0 1</diffuse>
+            <specular>0.1 0.1 0.05 1</specular> 
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.05</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="marker2">
+      <static>false</static>
+      <pose>-1 0 1.5 0 0 0</pose>
+      <link name="marker2">
+        <inertial>
+          <mass>0.5367</mass>
+          <inertia>
+            <ixx>0.0005367</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0005367</iyy>
+            <iyz>0</iyz>
+            <izz>0.0005367</izz>
+          </inertia>
+        </inertial>
+        <linear_damping>5.0</linear_damping>
+        <angular_damping>5.0</angular_damping>
+        <visual name="visual">
+          <geometry><sphere><radius>0.05</radius></sphere></geometry>
+          <material>
+            <ambient>0.7 0.6 0 1</ambient>
+            <diffuse>1.0 0.85 0 1</diffuse>
+            <specular>0.1 0.1 0.05 1</specular> 
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.05</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
 
     <!-- World -->
     <include>
@@ -178,14 +238,6 @@
       <uri>model://assembly</uri>
       <pose>0 0 0 0 0 0</pose>
     </include> -->
-    <!-- <include>
-      <uri>model://mark1</uri>
-      <pose>0.5 0.5 0.09 0 0 0</pose>
-    </include> 
-    <include>
-      <uri>model://mark2</uri>
-      <pose>-1 0 0.09 0 0 0</pose>
-    </include>  -->
     <!-- <include>
       <uri>model://cable</uri>
       <pose>-1.97 2 3.5 0 -1.5708 0</pose>

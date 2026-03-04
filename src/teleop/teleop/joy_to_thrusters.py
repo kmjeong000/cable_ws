@@ -30,15 +30,16 @@ BTN_ARM_OFF = 8
 BTN_ARM_ON = 9
 
 DEADZONE = 0.08
+DEADZONE_HEAVE = 0.18
 RATE_HZ = 50.0
 TIMEOUT_SEC = 0.3
 
 # =========================
 # Command scaling
 # =========================
-STEP_XY = 100.0
-STEP_Z  = 100.0
-MAX_CMD = 200.0
+STEP_XY = 4.0
+STEP_Z  = 6.0
+MAX_CMD = 80.0
 
 CAM_STEP = 0.03
 CAM_MIN = -0.785398
@@ -53,10 +54,13 @@ THROTTLE_DEFAULT_INDEX = 1      # 0.50
 # =========================
 # Z-hold control (PI recommended)
 # =========================
-Z_KP = 2.0
-Z_KI = 0.4          # set 0.0 to disable integral
-I_CLAMP = 10.0      # integral anti-windup clamp in "cmd units"
+Z_KP = 0.8
+Z_KI = 0.0         # set 0.0 to disable integral
+I_CLAMP = 60.0      # integral anti-windup clamp in "cmd units"
 LOCK_ON_RELEASE = True  # if True: target locks when heave buttons are released
+
+H_FF = 0.0
+LOCK_ON_RELEASE = True
 
 # =========================
 # IMPORTANT: Heave sign convention
@@ -64,7 +68,7 @@ LOCK_ON_RELEASE = True  # if True: target locks when heave buttons are released
 # We define "H > 0" as "try to increase Z (go upward in z-up world)".
 # Depending on your model/plugin, sending positive cmd_thrust may move up or down.
 # Use this to flip the heave command if Z-hold diverges.
-HEAVE_SIGN = +1.0   # try +1.0 first; if it runs away, set to -1.0
+HEAVE_MODEL_SIGN = -1.0   # try +1.0 first; if it runs away, set to -1.0
 
 # =========================
 # Helpers
@@ -106,6 +110,7 @@ class JoyToThrusters(Node):
         self.z_target = None
         self._last_hold_btn = 0
         self._last_hold_off_btn = 0
+        self.h_ff = 0.0
 
         # OUTPUT SCALE
         self.throttle_index = THROTTLE_DEFAULT_INDEX
@@ -142,7 +147,6 @@ class JoyToThrusters(Node):
             f"- axes: FWD=axes[{AXIS_FWD}], YAW=axes[{AXIS_YAW}]\n"
             f"- STEP_XY={STEP_XY}, STEP_Z={STEP_Z}, MAX_CMD={MAX_CMD}\n"
             f"- Z_KP={Z_KP}, Z_KI={Z_KI}, I_CLAMP={I_CLAMP}, LOCK_ON_RELEASE={LOCK_ON_RELEASE}\n"
-            f"- HEAVE_SIGN={HEAVE_SIGN}  (H>0 means 'increase Z')"
         )
 
     # -------------------------
@@ -200,10 +204,10 @@ class JoyToThrusters(Node):
 
         # ---- vertical (5~8) ----
         # keep your current convention: thruster cmd is -H
-        t5 = +H
-        t6 = +H
-        t7 = +H
-        t8 = +H
+        t5 = H
+        t6 = H
+        t7 = H
+        t8 = H
         
         out = [t1,t2,t3,t4,t5,t6,t7,t8]
         return [clamp(v, -MAX_CMD, MAX_CMD) for v in out]
@@ -257,11 +261,14 @@ class JoyToThrusters(Node):
                 self.z_target = None
                 self.i_term = 0.0
                 self._heave_was_active = False
+
+                self.h_ff = 0.0
+
                 self.get_logger().info("Z hold ON (target will lock).")
 
         self._last_hold_btn = hold_on_btn
 
-        # --------- Z-hold ON ---------
+        # --------- Z-hold OFF ---------
         hold_off_btn = self._get_btn(BTN_Z_HOLD_OFF)
         if hold_off_btn == 1 and self._last_hold_off_btn == 0:
             if self.z_hold:
@@ -269,6 +276,7 @@ class JoyToThrusters(Node):
                 self.z_target = None
                 self.i_term = 0.0
                 self._heave_was_active = False
+                self.h_ff = 0.0
                 self.get_logger().info("Z hold OFF")
         self._last_hold_off_btn = hold_off_btn
 
@@ -337,10 +345,10 @@ class JoyToThrusters(Node):
         S = (-axis_sway) * STEP_XY
 
         # --------- manual heave buttons ---------
-        axis_heave = dz(self._get_axis(AXIS_HEAVE), DEADZONE)
-        H_manual = (+axis_heave) * STEP_Z
+        axis_heave = dz(self._get_axis(AXIS_HEAVE), DEADZONE_HEAVE)
+        H_manual = (-axis_heave) * STEP_Z
 
-        heave_active = abs(H_manual) > 1e-6
+        heave_active = abs(axis_heave) > 0.0
 
         # --------- Z hold control ---------
         if self.z_hold and (self.z_now is not None):
@@ -388,17 +396,11 @@ class JoyToThrusters(Node):
                 else:
                     self.i_term = 0.0
 
-                H_hold = p + self.i_term
-
-                # Convert to our chosen convention: H>0 should increase Z.
-                # If model sign is opposite, flip HEAVE_SIGN.
-                H = HEAVE_SIGN * H_hold
-
-                H = clamp(H, -MAX_CMD, MAX_CMD)
+                H_hold = self.h_ff + p + self.i_term
+                H = clamp(H_hold, -MAX_CMD, MAX_CMD)
 
             else:
                 # Manual pass-through: still apply HEAVE_SIGN so "ASCEND" means increase Z
-                H = HEAVE_SIGN * H
                 H = clamp(H, -MAX_CMD, MAX_CMD)
 
         else:
@@ -407,16 +409,15 @@ class JoyToThrusters(Node):
             self.i_term = 0.0
             self._heave_was_active = False
 
-            H = HEAVE_SIGN * H_manual
-            H = clamp(H, -MAX_CMD, MAX_CMD)
+            H = clamp(H_manual, -MAX_CMD, MAX_CMD)
 
         F *= self.throttle_scale
         Y *= self.throttle_scale
         S *= self.throttle_scale
-        H *= self.throttle_scale
 
         # --------- mix & publish ---------
-        cmd = self.mix_thrusters(F=F, S=S, Y=Y, H=H)
+        H_out = HEAVE_MODEL_SIGN * H
+        cmd = self.mix_thrusters(F=F, S=S, Y=Y, H=H_out)
         self.last_cmd = cmd
         self.publish_cmd(cmd)
 
