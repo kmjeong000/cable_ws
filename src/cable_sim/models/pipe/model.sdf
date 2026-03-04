@@ -30,7 +30,7 @@
       <collision name="pipe_collision">
         <geometry>
           <mesh>
-            <uri>meshes/pipe.stl</uri>
+            <uri>meshes/pipe_col.stl</uri>
           </mesh>
         </geometry>
         <surface>
