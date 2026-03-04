@@ -7,7 +7,7 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     namespace_arg = DeclareLaunchArgument(
         "namespace",
-        default_value="bluerov2",
+        default_value="mud",
         description="Model namespace / name in Gazebo",
     )
 
@@ -27,7 +27,7 @@ def generate_launch_description():
             PathJoinSubstitution([
                 FindPackageShare("cable_sim"),
                 "models",
-                "bluerov2",
+                "mud",
                 "config",             
                 "robot_config.py",
             ])

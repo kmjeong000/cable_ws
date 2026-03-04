@@ -24,7 +24,7 @@
       <graded_buoyancy>
         <default_density>1025</default_density>
         <density_change>
-          <above_depth>2.1</above_depth>
+          <above_depth>4</above_depth>
           <density>1</density>
         </density_change>
       </graded_buoyancy>
@@ -47,35 +47,164 @@
       <static>1</static>
       <link name="link">
         <visual name="vis">
-          <pose>0 0 1.1 0 0 0</pose>
+          <pose>0 0 2.003 0 0 0</pose>
           <geometry>
-            <box><size>5 5 2.0</size></box>
+            <box><size>3.993 4.993 4</size></box>
           </geometry>
           <material>
-            <ambient>0 0.2 0.4 0.3</ambient>
-            <diffuse>0 0.2 0.4 0.3</diffuse>
+            <ambient>0 0.2 0.4 0.6</ambient>
+            <diffuse>0 0.3 0.6 0.6</diffuse>
+            <specular>0.1 0.2 0.3 1</specular>
           </material>
         </visual>
       </link>
     </model>
 
+    <model name="plate">
+      <static>true</static>
+      <link name="p01">
+        <pose>-1.85 2.25 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.95 0.95 0.95 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p02">
+        <pose>1.75 2.25 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0.5 0 0 1</ambient>
+            <diffuse>0.9 0 0 1</diffuse>
+            <specular>0.1 0.05 0.05 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p03">
+        <pose>1.75 -0.35 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0.8 0.4 0.6 1</ambient>
+            <diffuse>1.0 0.5 0.7 1</diffuse>
+            <specular>0.1 0.05 0.08 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p04">
+        <pose>1.75 -2.25 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0 0.4 0 1</ambient>
+            <diffuse>0 0.7 0.2 1</diffuse>
+            <specular>0.05 0.1 0.05 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p05">
+        <pose>-1.15 -0.35 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0.7 0.6 0 1</ambient>
+            <diffuse>1.0 0.85 0 1</diffuse>
+            <specular>0.1 0.1 0.05 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p06">
+        <pose>-1.15 -2.25 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0 0 0.3 1</ambient>
+            <diffuse>0 0 0.5 1</diffuse>
+            <specular>0.05 0.05 0.1 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+      <link name="p07">
+        <pose>-1.85 -2.25 0.03 0 0 0</pose>
+        <visual name="vis">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+          <material>
+            <ambient>0.05 0.05 0.05 1</ambient>
+            <diffuse>0.1 0.1 0.1 1</diffuse>
+            <specular>0.02 0.02 0.02 1</specular> 
+          </material>
+        </visual>
+        <collision name="col">
+          <geometry><box><size>0.3 0.3 0.02</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+
+    <!-- World -->
     <include>
       <uri>model://watertank</uri>
-      <pose>0 0 1.25 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://pipe</uri>
+      <pose>0 -0.35 0.03 0 0 0</pose>
     </include>
 
+    <!-- Robot -->
     <!-- <include>
       <uri>model://assembly</uri>
       <pose>0 0 0 0 0 0</pose>
     </include> -->
-    <include>
-      <uri>model://cable2</uri>
-      <pose>0 -2.424 0 0 0 0</pose>
+    <!-- <include>
+      <uri>model://mark1</uri>
+      <pose>0.5 0.5 0.09 0 0 0</pose>
     </include> 
     <include>
-      <uri>model://bluerov2</uri>
-      <pose>0 0 1 0 0 0</pose>
+      <uri>model://mark2</uri>
+      <pose>-1 0 0.09 0 0 0</pose>
+    </include>  -->
+    <!-- <include>
+      <uri>model://cable</uri>
+      <pose>-1.97 2 3.5 0 -1.5708 0</pose>
+    </include>  -->
+    <include>
+      <uri>model://mud</uri>
+      <pose>1 1 3 0 0 0</pose>
+      <!-- <pose relative_to="cable::end_sphere">0.295 0 -0.043 0 1.5708 0</pose> -->
     </include>
+
+    <!-- <joint name="cable_to_tank" type="fixed">
+      <parent>watertank::tank_link</parent>
+      <child>cable::base_link</child>
+      <pose>-1.97 2 3.5 0 0 0</pose>
+    </joint>
+    <joint name="cable_to_mud" type="fixed">
+      <parent>cable::end_sphere</parent>
+      <child>mud::base_link</child>
+    </joint> -->
 
   </world>
 </sdf>
