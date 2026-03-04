@@ -16,8 +16,7 @@ def launch_setup(context, *args, **kwargs):
         thruster_joints.append(f"/model/{namespace}/joint/thruster{thruster}_joint")
 
     mud_arguments = (
-        [f"{joint}/cmd_thrust@std_msgs/msg/Float64@gz.msgs.                                                                                                                                                                                                                                                                                                                                                                                  Double" for joint in thruster_joints]
-        + [f"{joint}/ang_vel@std_msgs/msg/Float64@gz.msgs.Double" for joint in thruster_joints]
+        [f"{joint}/cmd_thrust@std_msgs/msg/Float64@gz.msgs.Double" for joint in thruster_joints]
         + [f"{joint}/enable_deadband@std_msgs/msg/Bool@gz.msgs.Boolean" for joint in thruster_joints]
         + [
             f"/model/{namespace}/odometry@nav_msgs/msg/Odometry@gz.msgs.Odometry",

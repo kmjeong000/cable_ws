@@ -36,9 +36,9 @@ TIMEOUT_SEC = 0.3
 # =========================
 # Command scaling
 # =========================
-STEP_XY = 5.0
-STEP_Z  = 5.0
-MAX_CMD = 30.0
+STEP_XY = 100.0
+STEP_Z  = 100.0
+MAX_CMD = 200.0
 
 CAM_STEP = 0.03
 CAM_MIN = -0.785398
@@ -81,12 +81,12 @@ class JoyToThrusters(Node):
 
         self.sub_joy = self.create_subscription(Joy, "/joy", self.cb_joy, 10)
         self.sub_odom = self.create_subscription(
-            Odometry, "/model/bluerov2/odometry", self.cb_odom, 10
+            Odometry, "/model/mud/odometry", self.cb_odom, 10
         )
 
         self.pub = {}
-        for i in range(1, 7):
-            topic = f"/model/bluerov2/joint/thruster{i}_joint/cmd_thrust"
+        for i in range(1, 9):
+            topic = f"/model/mud/joint/thruster{i}_joint/cmd_thrust"
             self.pub[i] = self.create_publisher(Float64, topic, 10)
 
         self.last_axes = []
@@ -122,7 +122,7 @@ class JoyToThrusters(Node):
         self.cam_tilt = 0.0
         self.pub_cam_tilt = self.create_publisher(
             Float64,
-            "/model/bluerov2/joint/camera_tilt_joint/cmd_pos",
+            "/model/mud/joint/camera_tilt_joint/cmd_pos",
             10
         )
 
@@ -132,7 +132,7 @@ class JoyToThrusters(Node):
         # integral state
         self.i_term = 0.0
 
-        self.last_cmd = [0.0] * 6
+        self.last_cmd = [0.0] * 8
         self.timer = self.create_timer(1.0 / RATE_HZ, self.tick)
 
 
@@ -168,35 +168,45 @@ class JoyToThrusters(Node):
     # -------------------------
     # Output helpers
     # -------------------------
-    def publish_cmd(self, cmd6):
-        for i in range(1, 7):
+    def publish_cmd(self, cmd8):
+        for i in range(1, 9):
             m = Float64()
-            m.data = float(cmd6[i - 1])
+            m.data = float(cmd8[i - 1])
             self.pub[i].publish(m)
 
-    def mix_like_keyboard(self, F: float, Y: float, H: float):
+    def mix_thrusters(self, F: float, S: float, Y: float, H: float):
         """
-        Matches your keyboard-style mixing:
-          t1 = -F - Y (+bias)
-          t2 = -F + Y
-          t3 =  F + Y (+bias)
-          t4 =  F - Y
-          t5,t6 = heave
+        Horizontal (1~4): vectored 45deg -> use F,S,Y
+        Vertical   (5~8): heave H (same)
+    
+        Convention:
+          F: forward(+)
+          S: right(+)
+          Y: yaw right/clockwise(+)  (sign may need flip)
+          H: up(+ in our convention before model sign)
         """
-        bias = 2.0 if abs(F) > 1e-6 else 0.0
-        bias *= 1.0 if F > 0 else -1.0
+        # ---- horizontal (1~4) ----
+        # Start with a common allocation. You will likely need to flip signs
+        # depending on thruster joint axis / prop direction
+        t1 = (+F + S + Y)
+        t2 = (+F - S - Y)
+        t3 = (-F + S - Y)
+        t4 = (-F - S + Y)
 
-        t1 = -F - Y + bias
-        t2 = -F + Y
-        t3 =  F + Y + bias
-        t4 =  F - Y
+        # optional: same "bias" you used for forward to overcome deadzone/stiction
+        # bias = 2.0 if abs(F) > 1e-6 else 0.0
+        # bias *= 1.0 if F > 0 else -1.0
+        # t1 += bias; t2 += bias; t3 += bias; t4 += bias
 
-        # Heave mapping (keep your original sign here: t5=t6=-H)
-        # We'll apply HEAVE_SIGN earlier so H means "increase Z" in our control law.
-        t5 = -H
-        t6 = -H
-
-        return [clamp(v, -MAX_CMD, MAX_CMD) for v in (t1, t2, t3, t4, t5, t6)]
+        # ---- vertical (5~8) ----
+        # keep your current convention: thruster cmd is -H
+        t5 = +H
+        t6 = +H
+        t7 = +H
+        t8 = +H
+        
+        out = [t1,t2,t3,t4,t5,t6,t7,t8]
+        return [clamp(v, -MAX_CMD, MAX_CMD) for v in out]
 
     # -------------------------
     # Main loop
@@ -318,14 +328,17 @@ class JoyToThrusters(Node):
 
         # --------- read planar inputs ---------
         axis_fwd = dz(self._get_axis(AXIS_FWD), DEADZONE)
-        F = (-axis_fwd) * STEP_XY
+        F = (+axis_fwd) * STEP_XY
 
         axis_yaw = dz(self._get_axis(AXIS_YAW), DEADZONE)
         Y = (-axis_yaw) * STEP_XY
 
+        axis_sway = dz(self._get_axis(AXIS_SWAY), DEADZONE)
+        S = (-axis_sway) * STEP_XY
+
         # --------- manual heave buttons ---------
         axis_heave = dz(self._get_axis(AXIS_HEAVE), DEADZONE)
-        H_manual = (-axis_heave) * STEP_Z
+        H_manual = (+axis_heave) * STEP_Z
 
         heave_active = abs(H_manual) > 1e-6
 
@@ -399,16 +412,17 @@ class JoyToThrusters(Node):
 
         F *= self.throttle_scale
         Y *= self.throttle_scale
+        S *= self.throttle_scale
         H *= self.throttle_scale
 
         # --------- mix & publish ---------
-        cmd = self.mix_like_keyboard(F=F, Y=Y, H=H)
+        cmd = self.mix_thrusters(F=F, S=S, Y=Y, H=H)
         self.last_cmd = cmd
         self.publish_cmd(cmd)
 
     def _stop(self):
         if any(abs(v) > 1e-6 for v in self.last_cmd):
-            self.last_cmd = [0.0] * 6
+            self.last_cmd = [0.0] * 8
             self.publish_cmd(self.last_cmd)
 
 def main():

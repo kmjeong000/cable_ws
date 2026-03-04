@@ -5,7 +5,7 @@
     <link name="base_link">
       <inertial>
         <pose>0 0 0 0 0 0</pose>
-        <mass>7.4</mass>
+        <mass>100</mass>
         <inertia>
           <ixx>0.0204067</ixx>
           <ixy>0</ixy>
@@ -22,15 +22,42 @@
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
+        <material>
+          <ambient>0.15 0.15 0.15 1</ambient>
+          <diffuse>0.25 0.25 0.25 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
       </visual>
-      <collision name="base_link_collision">
+      <collision name="shell_bottom">
         <pose>0 0 0 0 0 0</pose>
-        <geometry>
-          <box>
-            <size>0.65 0.272 0.12</size>
-          </box>
-        </geometry>
+        <geometry><box><size>0.65 0.272 0.118</size></box></geometry>
       </collision>
+<!-- 
+      <collision name="shell_top">
+        <pose>0 0 0.05375 0 0 0</pose>
+        <geometry><box><size>0.65 0.272 0.015</size></box></geometry>
+      </collision>
+
+      <collision name="shell_y_plus">
+        <pose>0 0.12975 0 0 0 0</pose>
+        <geometry><box><size>0.65 0.014 0.095</size></box></geometry>
+      </collision>
+
+      <collision name="shell_y_minus">
+        <pose>0 -0.12975 0 0 0 0</pose>
+        <geometry><box><size>0.65 0.014 0.095</size></box></geometry>
+      </collision>
+
+      <collision name="shell_x_plus">
+        <pose>0.31875 0 0 0 0 0</pose>
+        <geometry><box><size>0.014 0.272 0.095</size></box></geometry>
+      </collision>
+
+      <collision name="shell_x_minus">
+        <pose>-0.31875 0 0 0 0 0</pose>
+        <geometry><box><size>0.014 0.272 0.095</size></box></geometry>
+      </collision> -->
+
 
       <sensor name="imu_sensor" type="imu">
         <pose>0 0 0 0 0 0</pose>
@@ -109,7 +136,7 @@
       </sensor>
     </link>
     <link name="camera_mount_link">
-      <pose relative_to="base_link">0.32 0 0 0 0 0</pose>
+      <pose relative_to="base_link">0.325 0 0 0 0 0</pose>
       <inertial>
         <mass>0.0001</mass>
         <inertia>
@@ -139,7 +166,7 @@
     </joint>
 
     <link name="thruster1">
-      <pose>0.22067 0.097356 0 -1.571 1.571 -0.785</pose>
+      <pose>0.22067 0.097356 0 -1.571 1.571 -2.356</pose>
       <visual name="thruster_prop_visual">
         <pose>0 0 0 -1.571 0 0</pose>
         <geometry>
@@ -162,7 +189,7 @@
     </link>
 
     <link name="thruster2">
-      <pose>0.22067 -0.097356 0 -1.571 1.571 -2.356</pose>
+      <pose>0.22067 -0.097356 0 -1.571 1.571 -0.785</pose>
       <visual name="thruster_prop_visual">
         <pose>0 0 0 -1.571 0 0</pose>
         <geometry>
@@ -185,7 +212,7 @@
     </link>
 
     <link name="thruster3">
-      <pose>-0.22067 0.097356 0 -1.571 1.571 0.785</pose>
+      <pose>-0.22067 0.097356 0 -1.571 1.571 2.356</pose>
       <visual name="thruster_prop_visual">
         <pose>0 0 0 1.571 0 0</pose>
         <geometry>
@@ -208,7 +235,7 @@
     </link>
 
     <link name="thruster4">
-      <pose>-0.22067 -0.097356 0 -1.571 1.571 2.356</pose>
+      <pose>-0.22067 -0.097356 0 -1.571 1.571 0.785</pose>
       <visual name="thruster_prop_visual">
         <pose>0 0 0 1.571 0 0</pose>
         <geometry>
