@@ -11,7 +11,7 @@ class QGCImage(Node):
     def __init__(self):
         super().__init__("qgc_image")
 
-        self.topic = "/model/bluerov2/camera"
+        self.topic = "/model/mud/camera"
         self.host = "host.docker.internal"
         self.port = 5600
         self.fps = 15

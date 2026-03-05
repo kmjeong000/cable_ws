@@ -26,8 +26,8 @@ def launch_setup(context, *args, **kwargs):
             f"/model/{namespace}/magnetometer@sensor_msgs/msg/MagneticField@gz.msgs.Magnetometer",
             f"/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock",
 
-            f"/model/{namespace}/camera@sensor_msgs/msg/Image@gz.msgs.Image",
-            f"/model/{namespace}/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo",
+            f"/model/{namespace}/camera/image@sensor_msgs/msg/Image@gz.msgs.Image",
+            f"/model/{namespace}/camera/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo",
             f"/model/{namespace}/joint/camera_tilt_joint/cmd_pos@std_msgs/msg/Float64@gz.msgs.Double",
         ]
     )

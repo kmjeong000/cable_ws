@@ -8,8 +8,8 @@ def generate_launch_description():
         executable="parameter_bridge",
         output="screen",
         arguments=[
-            "/model/bluerov2/camera@sensor_msgs/msg/Image[gz.msgs.Image",
-            "/model/bluerov2/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
+            "/model/mud/camera@sensor_msgs/msg/Image[gz.msgs.Image",
+            "/model/mud/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
         ]
     )
 
