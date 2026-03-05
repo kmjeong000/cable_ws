@@ -11,10 +11,10 @@ from std_msgs.msg import Float64
 # =========================
 AXIS_SWAY = 0   # left/right (optional - not used in mixing below)
 AXIS_FWD  = 1   # w=-1, s=+1
-AXIS_YAW  = 2   # a=-1, d=+1
-AXIS_HEAVE = 3
+AXIS_YAW  = 4   # a=-1, d=+1
+AXIS_HEAVE = 5
 
-BTN_Z_HOLD_ON = 3      # depth-hold button -> here we do Z-hold (hold current Z position)
+BTN_Z_HOLD_ON = 2      # depth-hold button -> here we do Z-hold (hold current Z position)
 BTN_Z_HOLD_OFF = 0
 
 BTN_CAM_UP = 12     # tilt up
@@ -24,7 +24,7 @@ BTN_LIGHT_DN = 14     # brightness down
 BTN_LIGHT_UP = 15     # brightness up
 
 BTN_SCALE_UP = 1    # output scale up
-BTN_SCALE_DN = 2    # output scale down
+BTN_SCALE_DN = 3    # output scale down
 
 BTN_ARM_OFF = 8
 BTN_ARM_ON = 9

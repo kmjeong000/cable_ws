@@ -12,7 +12,7 @@ class QGCImage(Node):
         super().__init__("qgc_image")
 
         self.topic = "/model/mud/camera"
-        self.host = "host.docker.internal"
+	self.host = "172.17.0.1"
         self.port = 5600
         self.fps = 15
 

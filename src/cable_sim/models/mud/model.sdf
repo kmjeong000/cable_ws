@@ -7,15 +7,19 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>21.4</mass>
         <inertia>
-          <ixx>0.0204067</ixx>
+          <ixx>0.18</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.23825</iyy>
+          <iyy>0.35</iyy>
           <iyz>0</iyz>
-          <izz>0.24749</izz>
+          <izz>0.40</izz>
         </inertia>
       </inertial>
-      <visual name="base_link_visual">
+      <velocity_decay>
+        <linear>0.2</linear>
+        <angular>2.0</angular>
+      </velocity_decay>
+      <visual name="mud_visual">
         <geometry>
           <mesh>
             <uri>model://mud/meshes/MUD.stl</uri>
@@ -28,36 +32,10 @@
           <specular>0.1 0.1 0.1 1</specular>
         </material>
       </visual>
-      <collision name="shell_bottom">
+      <collision name="mud_collision">
         <pose>0 0 0 0 0 0</pose>
         <geometry><box><size>0.65 0.272 0.118</size></box></geometry>
       </collision>
-<!-- 
-      <collision name="shell_top">
-        <pose>0 0 0.05375 0 0 0</pose>
-        <geometry><box><size>0.65 0.272 0.015</size></box></geometry>
-      </collision>
-
-      <collision name="shell_y_plus">
-        <pose>0 0.12975 0 0 0 0</pose>
-        <geometry><box><size>0.65 0.014 0.095</size></box></geometry>
-      </collision>
-
-      <collision name="shell_y_minus">
-        <pose>0 -0.12975 0 0 0 0</pose>
-        <geometry><box><size>0.65 0.014 0.095</size></box></geometry>
-      </collision>
-
-      <collision name="shell_x_plus">
-        <pose>0.31875 0 0 0 0 0</pose>
-        <geometry><box><size>0.014 0.272 0.095</size></box></geometry>
-      </collision>
-
-      <collision name="shell_x_minus">
-        <pose>-0.31875 0 0 0 0 0</pose>
-        <geometry><box><size>0.014 0.272 0.095</size></box></geometry>
-      </collision> -->
-
 
       <sensor name="imu_sensor" type="imu">
         <pose>0 0 0 0 0 0</pose>
@@ -447,10 +425,9 @@
         name="gz::sim::systems::Thruster">
       <namespace>mud</namespace>
       <joint_name>thruster1_joint</joint_name>
-      <thrust_coefficient>0.02</thrust_coefficient>
+      <thrust_coefficient>0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -459,10 +436,9 @@
         name="gz::sim::systems::Thruster">
       <namespace>mud</namespace>
       <joint_name>thruster2_joint</joint_name>
-      <thrust_coefficient>0.02</thrust_coefficient>
+      <thrust_coefficient>0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -472,10 +448,9 @@
       <namespace>mud</namespace>
       <joint_name>thruster3_joint</joint_name>
       <!-- Reverse spin to balance torque -->
-      <thrust_coefficient>-0.02</thrust_coefficient>
+      <thrust_coefficient>-0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -485,10 +460,9 @@
       <namespace>mud</namespace>
       <joint_name>thruster4_joint</joint_name>
       <!-- Reverse spin to balance torque -->
-      <thrust_coefficient>-0.02</thrust_coefficient>
+      <thrust_coefficient>-0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -497,10 +471,9 @@
         name="gz::sim::systems::Thruster">
       <namespace>mud</namespace>
       <joint_name>thruster5_joint</joint_name>
-      <thrust_coefficient>0.02</thrust_coefficient>
+      <thrust_coefficient>0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -510,10 +483,9 @@
       <namespace>mud</namespace>
       <joint_name>thruster6_joint</joint_name>
       <!-- Reverse spin to balance torque -->
-      <thrust_coefficient>-0.02</thrust_coefficient>
+      <thrust_coefficient>-0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -523,10 +495,9 @@
       <namespace>mud</namespace>
       <joint_name>thruster7_joint</joint_name>
       <!-- Reverse spin to balance torque -->
-      <thrust_coefficient>-0.02</thrust_coefficient>
+      <thrust_coefficient>-0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
 
@@ -536,10 +507,9 @@
       <namespace>mud</namespace>
       <joint_name>thruster8_joint</joint_name>
       <!-- Reverse spin to balance torque -->
-      <thrust_coefficient>-0.02</thrust_coefficient>
+      <thrust_coefficient>-0.01</thrust_coefficient>
       <fluid_density>1025.0</fluid_density>
       <propeller_diameter>0.07</propeller_diameter>
-      <velocity_control>true</velocity_control>
       <use_angvel_cmd>False</use_angvel_cmd>
     </plugin>
     

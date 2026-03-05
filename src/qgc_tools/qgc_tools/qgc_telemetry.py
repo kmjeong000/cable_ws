@@ -12,7 +12,7 @@ from sensor_msgs.msg import FluidPressure, Temperature
 
 from pymavlink import mavutil
 
-QGC_HOST = "host.docker.internal"
+QGC_HOST = "172.17.0.1"
 QGC_PORT = 14550
 
 KST = ZoneInfo("Asia/Seoul")
@@ -33,22 +33,22 @@ class QGCTelemetry(Node):
 
         # --- inputs ---
         self.sub_odom = self.create_subscription(
-            Odometry, "/model/bluerov2/odometry", self.cb_odom, 10
+            Odometry, "/model/mud/odometry", self.cb_odom, 10
         )
 
         # pressure / temperature topic
         self.sub_pressure = self.create_subscription(
-          FluidPressure, "/model/bluerov2/sensor/pressure/pressure", self.cb_pressure, 10
+          FluidPressure, "/model/mud/sensor/pressure/pressure", self.cb_pressure, 10
         )
         self.sub_temp = self.create_subscription(
-          Temperature, "/model/bluerov2/sensor/temperature/temperature", self.cb_temp, 10
+          Temperature, "/model/mud/sensor/temperature/temperature", self.cb_temp, 10
         )
 
         # thruster cmd
         self.thr = [0.0] * 6
         self.thr_last_t = [None] * 6
         for i in range(6):
-            topic = f"/model/bluerov2/joint/thruster{i+1}_joint/cmd_thrust"
+            topic = f"/model/mud/joint/thruster{i+1}_joint/cmd_thrust"
             self.create_subscription(Float64, topic, self._mk_thr_cb(i), 10)
 
         # --- state ---
