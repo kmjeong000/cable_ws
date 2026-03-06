@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Gamepad -> WS</title></head>
+<body>
+<h2>Gamepad -> WebSocket</h2>
+<p id="st">status: waiting...</p>
+<pre id="out"></pre>
+<script>
+const st = document.getElementById('st');
+const out = document.getElementById('out');
+const ws = new WebSocket("ws://127.0.0.1:5760");
+
+ws.onopen = () => { st.textContent = "status: websocket connected"; };
+ws.onerror = () => { st.textContent = "status: websocket error (is ws_to_joy.py running?)"; };
+
+function pickBestGamepad(){
+  const gps = navigator.getGamepads ? navigator.getGamepads() : [];
+  let best = null;
+  let bestScore = -1;
+
+  for (const gp of gps){
+    if (!gp) continue;
+    const na = gp.axes ? gp.axes.length : 0;
+    const nb = gp.buttons ? gp.buttons.length : 0;
+
+    const score = na * 100 + nb;
+    if (score > bestScore){
+      bestScore = score;
+      best = gp;
+    }
+  }
+  return best;
+}
+
+function fmtVertical(name, arr){
+  let s = `${name}(${arr.length})\n`;
+  for (let i = 0; i < arr.length; i++){
+    s += `  [${i}] ${arr[i]}\n`;
+  }
+  return s;
+}
+
+function loop(){
+  const gp = pickBestGamepad();
+
+  if (gp && ws.readyState === 1){
+    const axes = Array.from(gp.axes || []);
+    const buttons = (gp.buttons || []).map(b => b.pressed ? 1 : 0);
+
+    const payload = {
+      index: gp.index,
+      id: gp.id,
+      axes: axes,
+      buttons: buttons,
+    };
+
+    ws.send(JSON.stringify(payload));
+
+    out.textContent =
+      `gp.index=${payload.index}\n` +
+      `gp.id=${payload.id}\n\n` +
+      fmtVertical("axes", payload.axes) + "\n" +
+      fmtVertical("buttons", payload.buttons);
+
+  } else {
+    out.textContent = "No gamepad or WS not ready";
+  }
+
+  requestAnimationFrame(loop);
+}
+
+window.addEventListener("gamepadconnected", (e) => {
+  st.textContent = "status: gamepad connected";
+});
+loop();
+</script>
+</body>
+</html>
