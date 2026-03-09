@@ -30,7 +30,7 @@ class BlueROV2KeyboardTeleop(Node):
         # Thruster command topics (your model uses cmd_thrust)
         self.pub = {}
         for i in range(1, 7):
-            topic = f"/model/bluerov2/joint/thruster{i}_joint/cmd_thrust"
+            topic = f"/model/mud/joint/thruster{i}_joint/cmd_thrust"
             self.pub[i] = self.create_publisher(Float64, topic, 10)
 
         # Pitch compensation from odometry 
@@ -46,7 +46,7 @@ class BlueROV2KeyboardTeleop(Node):
 
         self.odom_sub = self.create_subscription(
             Odometry,
-            "/model/bluerov2/odometry",
+            "/model/mud/odometry",
             self.on_odom,
             10,
         )

@@ -17,7 +17,7 @@
       </inertial>
       <velocity_decay>
         <linear>0.2</linear>
-        <angular>2.0</angular>
+        <angular>0.6</angular>
       </velocity_decay>
       <visual name="mud_visual">
         <geometry>
@@ -35,13 +35,20 @@
       <collision name="mud_collision">
         <pose>0 0 0 0 0 0</pose>
         <geometry><box><size>0.65 0.272 0.118</size></box></geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0.4</mu>
+              <mu2>0.4</mu2>
+            </ode>
+          </friction>
+        </surface>
       </collision>
 
       <sensor name="imu_sensor" type="imu">
         <pose>0 0 0 0 0 0</pose>
         <always_on>1</always_on>
         <update_rate>1000.0</update_rate>
-        <topic>/model/mud/imu</topic>
       </sensor>
       <light name="light1" type="spot">
         <pose relative_to="base_link">0.18011 -0.056687 0.045 0 -1.5708 0</pose>
@@ -142,6 +149,21 @@
       <parent>base_link</parent>
       <child>camera_mount_link</child>
     </joint>
+
+    <link name="tether_mount">
+      <pose>0.315 0 0.03 0 0 0</pose>
+      <inertial>
+        <mass>1e-6</mass>
+        <inertia>
+          <ixx>1e-9</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-9</iyy>
+          <iyz>0</iyz>
+          <izz>1e-9</izz>
+        </inertia>
+      </inertial>
+    </link>
 
     <link name="thruster1">
       <pose>0.22067 0.097356 0 -1.571 1.571 -2.356</pose>
@@ -415,9 +437,9 @@
       <xUabsU>-33.732</xUabsU>
       <yVabsV>-54.16</yVabsV>
       <zWabsW>-73.225</zWabsW>
-      <kPabsP>-3.992</kPabsP>
-      <mQabsQ>-3.992</mQabsQ>
-      <nRabsR>-3.992</nRabsR>
+      <kPabsP>-25</kPabsP>
+      <mQabsQ>-25</mQabsQ>
+      <nRabsR>-12</nRabsR>
     </plugin>
 
     <plugin
@@ -533,6 +555,92 @@
     <plugin
       filename="gz-sim-joint-state-publisher-system"
       name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+      filename="ArduPilotPlugin"
+      name="ArduPilotPlugin">
+      <imuName>imu_sensor</imuName>
+
+      <fdm_addr>127.0.0.1</fdm_addr>
+      <fdm_port_in>9002</fdm_port_in>
+      <fdm_port_out>9003</fdm_port_out>
+
+      <lock_step>true</lock_step>
+      <no_time_sync>true</no_time_sync>
+
+      <control channel="0">
+        <type>COMMAND</type>
+        <jointName>thruster1_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster1_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="1">
+        <type>COMMAND</type>
+        <jointName>thruster2_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster2_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="2">
+        <type>COMMAND</type>
+        <jointName>thruster3_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster3_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="3">
+        <type>COMMAND</type>
+        <jointName>thruster4_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster4_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="4">
+        <type>COMMAND</type>
+        <jointName>thruster5_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster5_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="5">
+        <type>COMMAND</type>
+        <jointName>thruster6_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster6_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="6">
+        <type>COMMAND</type>
+        <jointName>thruster7_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster7_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
+      <control channel="7">
+        <type>COMMAND</type>
+        <jointName>thruster8_joint</jointName>
+        <cmd_topic>/model/mud/joint/thruster8_joint/cmd_thrust</cmd_topic>
+        <multiplier>1.0</multiplier>
+        <offset>0.0</offset>
+        <servo_min>1100</servo_min>
+        <servo_max>1900</servo_max>
+      </control>
     </plugin>
 
   </model>

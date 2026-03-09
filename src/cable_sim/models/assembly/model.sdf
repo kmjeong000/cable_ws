@@ -6,18 +6,23 @@
     <include>
       <uri>model://cable</uri>
       <name>cable</name>
-      <pose>0 -2.424 0 0 0 0</pose>
-    </include>
+      <pose>-1.97 0 3.5 0 0 0</pose>
+    </include> 
 
     <include>
       <uri>model://mud</uri>
       <name>mud</name>
-      <pose relative_to="cable::end_sphere">0 0 0 0 0 0</pose>
+      <pose relative_to="cable::end_sphere">0.315 0 -0.03 0 0 0</pose>
     </include>
 
     <joint name="cable_to_mud" type="fixed">
       <parent>cable::end_sphere</parent>
       <child>mud::base_link</child>
+    </joint>
+    <joint name="cable_to_world" type="fixed">
+      <parent>world</parent>
+      <child>cable::base_link</child>
+      <pose>0 0 0 0 0 0</pose>
     </joint>
 
   </model>

@@ -19809,7 +19809,7 @@
       </visual>
        
     </link>
-    <joint name='joint_end_sphere' type='revolute'>
+    <!-- <joint name='joint_end_sphere' type='revolute'>
       <pose relative_to='segment_152_cylinder'>0 0 -0.016 0 0 0</pose>
       <parent>segment_152_cylinder</parent>
       <child>end_sphere</child>
@@ -19864,7 +19864,7 @@
           <specular>0.1 0.1 0.05 1</specular> 
         </material>
       </visual>
-    </link>
+    </link> -->
 
     <!-- Hydrodynamics drag for cable cylinders -->
     <plugin 
@@ -20031,7 +20031,7 @@
       <yVabsV>-0.5</yVabsV> 
       <zWabsW>-0.5</zWabsW>
     </plugin>
-    <plugin 
+    <!-- <plugin 
         filename="gz-sim-hydrodynamics-system"
         name="gz::sim::systems::Hydrodynamics">
       <link_name>end_sphere</link_name>
@@ -20042,6 +20042,6 @@
       <xUabsU>-1</xUabsU> 
       <yVabsV>-1</yVabsV> 
       <zWabsW>-1</zWabsW>
-    </plugin>
+    </plugin> -->
   </model>
 </sdf>
